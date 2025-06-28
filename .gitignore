@@ -1,0 +1,9 @@
+.nextflow
+.nextflow*
+__pycache__
+.vscode/launch.json
+work
+data
+test_data
+result*
+out*
