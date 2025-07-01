@@ -1,0 +1,4 @@
+sample,fast5_path
+s1,../data/chr22_meth_example/fast5_files
+s2,../data/chr22_meth_example/fast5_files
+s3,../data/chr22_meth_example/fast5_files

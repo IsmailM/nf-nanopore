@@ -10,6 +10,6 @@ process ANNOTATION_SNPEFF {
 
     script:
     """
-    snpEff ${params.SNPEFF.ref} ${variants_vcf} > annotated_variants.snpeff.vcf
+    snpEff ${params.SNPEFF_ref} ${variants_vcf} > annotated_variants.snpeff.vcf
     """
 }

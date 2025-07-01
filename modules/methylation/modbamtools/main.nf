@@ -1,11 +1,11 @@
 process MODBAMTOOLS {
     publishDir "${params.output_dir}/MODBAMTOOLS", mode: 'copy', overwrite: true
-    container 'ghcr.io/ismailm/modbamtools:v0.0.1'
+    container 'ghcr.io/ismailm/modbamtools:v0.0.3'
 
     input:
     tuple path(aligned_bam), path(bai)
     tuple path(ref), path(ref_idx)
-    path(modbamtools_gencode)
+    tuple path(modbamtools_gencode), path(modbamtools_gencode_tbi)
     path(modbamtools_locations_bed)
 
     output:
@@ -35,12 +35,11 @@ process MODBAMTOOLS {
         --threads ${task.cpus} \
         --out genes_clustered.bed \
         ${aligned_bam}
-        
+    
     modbamtools plot --batch ${modbamtools_locations_bed} \
         --gtf ${modbamtools_gencode} \
         --out . \
         --hap \
-        --threads 100 \
         --prefix sample_name1 \
         --samples sample_name1\
         --track-titles Genes \

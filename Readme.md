@@ -41,8 +41,6 @@ tar -xvf f5c_na12878_test.tgz
 rm f5c_na12878_test.tgz
 
 wget -O https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
-wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz
-wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz.tbi
 wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
 
 cd .. || exit 1
@@ -65,6 +63,31 @@ nextflow run IsmailM/nf-nanopore --output_dir output -c example.config \
 
 This should take around 15-20 mins with a machine with a GPU.
 
+## Development
+
+During development, it is easier to run nextflow as follows:
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/IsmailM/nf-nanopore
+```
+
+2. Call Nextflow directly
+
+```bash
+nextflow run main.nf -resume -with-tower --output_dir out -c nextflow.config \
+  --ref ../data/chr22_meth_example/humangenome.fa \
+  --fast5_dir ../data/chr22_meth_example/fast5_files \
+  --dorado_model_download_key dna_r9.4.1_e8_hac@v3.3 \
+  --modbamtools_locations_bed ../data/genes.bed \
+  --modbamtools_gencode ../data/gencode.v38.annotation.gtf.gz
+```
+
+> [!NOTE]  
+> Note that the above command resumes where possible and also attempts to use sequera platform for monitoring.
+> This requires the TOWER_ACCESS_TOKEN env variable to 
+
 ### Release a new Docker build
 
 The pipeline uses docker images on Github Docker Registry. If you make any changes to the underlying files including in the dockerfile, please push them to Dockerhub:
@@ -80,7 +103,7 @@ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 2. Build docker image and upload to Github Packages
 
 ```bash
-VERSION=v0.0.1
+VERSION=v0.0.3
 IMAGES=(
   "ont-fast5-api:modules/utils/ont-fast5-api"
   "sniffles_plotter:modules/qc/sniffles_plot"
@@ -97,5 +120,3 @@ for img in "${IMAGES[@]}"; do
     docker push ghcr.io/ismailm/${d_label}:latest
 done
 ```
-
-

@@ -16,7 +16,7 @@ process CLAIR_CALLER {
         --ref_fn=${ref} \\
         --threads=100 \\
         --platform="ont" \\
-        --model_path="/opt/models/${params.clair3?.model}" \\
+        --model_path="/opt/models/${params.clair3_model}" \\
         --output=variant
     """
 }

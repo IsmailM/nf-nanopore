@@ -1,6 +1,6 @@
 process SNIFFLES_PLOTTER {
     publishDir "${params.output_dir}/QC/SNIFFLES_PLOTTER", mode: 'copy', overwrite: true
-    container 'ghcr.io/ismailm/sniffles_plotter:latest'
+    container 'ghcr.io/ismailm/sniffles_plotter:v0.0.3'
 
     input:
     path(sniffles_vcf)
