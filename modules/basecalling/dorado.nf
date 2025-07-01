@@ -22,12 +22,12 @@ process DORADO_BASECALLER {
     def need_download = false
 
     if (params.dorado_model_file) {
-        model_to_use = params.dorado.model.file
+        model_to_use = params.dorado_model_file
     } else if (params.dorado_model_download_key) {
-        model_to_use = params.dorado.model.download_key
+        model_to_use = params.dorado_model_download_key
         need_download = true
     } else if (params.dorado_model_name) {
-        model_to_use = params.dorado.model.name
+        model_to_use = params.dorado_model_name
     } else {
         model_to_use = "hac,5mCG_5hmCG"
     }
