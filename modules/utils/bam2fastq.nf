@@ -1,5 +1,5 @@
 process BASECALLED_FASTQ {
-    publishDir "${params.output_dir}/BASECALLED_FASTQ", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/BASECALLING/BASECALLED_FASTQ", mode: 'copy', overwrite: true
     container 'quay.io/biocontainers/samtools:1.22--h96c455f_0'
 
     input:

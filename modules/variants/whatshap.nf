@@ -1,5 +1,5 @@
 process PHASING {
-    publishDir "${params.output_dir}/PHASING", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/VARIANTS/PHASING", mode: 'copy', overwrite: true
     container 'quay.io/biocontainers/whatshap:2.8--py39h2de1943_0'
 
     input:

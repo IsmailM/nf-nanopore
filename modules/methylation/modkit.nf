@@ -1,5 +1,5 @@
 process MODKIT {
-    publishDir "${params.output_dir}/MODKIT", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/METHYLATION/MODKIT", mode: 'copy', overwrite: true
     container 'quay.io/biocontainers/ont-modkit:0.5.0--hcdda2d0_0'
 
     input:

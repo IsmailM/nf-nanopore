@@ -40,11 +40,11 @@ wget -O f5c_na12878_test.tgz "https://f5c.page.link/f5c_na12878_test"
 tar -xvf f5c_na12878_test.tgz
 rm f5c_na12878_test.tgz
 
-wget -O https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
-wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
+# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
+# wget https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
 
 cd .. || exit 1
-wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
+wget https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
 ```
 
 2. Install Nextflow (follow instructions [here](https://www.nextflow.io/docs/latest/install.html)) and docker.
@@ -56,7 +56,7 @@ curl -s https://get.nextflow.io | bash
 3. Start the pipeline:
 
 ```bash 
-nextflow run IsmailM/nf-nanopore --output_dir output -c example.config \
+nextflow run IsmailM/nf-nanopore -latest --output_dir output -c example.config \
   --ref ./data/chr22_meth_example/humangenome.fa \
   --fast5_dir ./data/chr22_meth_example/fast5_files
 ```
@@ -120,3 +120,13 @@ for img in "${IMAGES[@]}"; do
     docker push ghcr.io/ismailm/${d_label}:latest
 done
 ```
+
+## Further Work:
+
+1. Take into account QC output before alignment (e.g. FASTP filtered FASTQs)
+2. Support Multiple Samples. (CSV input)
+3. split processes by chrom where possible
+4. Convert Fast5 to Pod5 and always use the latest version of dorado
+5. Include `aws` in each container (in prep for cloud)
+6. Support basecalling resumability (`--resume-from incomplete.bam`) - to have better resumability (maybe mount directory - and then resume from there)
+7. Local Docker Images (docker security scans show potential issues for some publicly used files)

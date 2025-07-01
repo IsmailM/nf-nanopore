@@ -1,5 +1,5 @@
 process DORADO_ALIGNER {
-    publishDir "${params.output_dir}/DORADO_ALIGNER", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/ALIGNMENT/DORADO_ALIGNER", mode: 'copy', overwrite: true
     container 'nanoporetech/dorado:latest'
 
     input:

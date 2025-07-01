@@ -1,5 +1,5 @@
 process MODBAMTOOLS {
-    publishDir "${params.output_dir}/MODBAMTOOLS", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/METHYLATION/MODBAMTOOLS", mode: 'copy', overwrite: true
     container 'ghcr.io/ismailm/modbamtools:v0.0.3'
 
     input:
@@ -36,7 +36,7 @@ process MODBAMTOOLS {
         --out genes_clustered.bed \
         ${aligned_bam}
     
-    modbamtools plot --batch ${modbamtools_locations_bed} \
+    modbamtools plot -r chr20:58820000-58895000 \
         --gtf ${modbamtools_gencode} \
         --out . \
         --hap \

@@ -1,5 +1,5 @@
 process SINGLE_TO_MULTI_FAST5 {
-    publishDir "${params.output_dir}/PROCESSED_FAST5", mode: 'copy', overwrite: true
+    publishDir "${params.output_dir}/FAST5/PROCESSED_FAST5", mode: 'copy', overwrite: true
     container 'ghcr.io/ismailm/ont-fast5-api:v0.0.3'
 
     input:

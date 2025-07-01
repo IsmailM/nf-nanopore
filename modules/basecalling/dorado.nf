@@ -1,5 +1,5 @@
 process DORADO_BASECALLER {
-     publishDir "${params.output_dir}/DORADO_BASECALLER", mode: 'copy', overwrite: true
+     publishDir "${params.output_dir}/BASECALLING/DORADO_BASECALLER", mode: 'copy', overwrite: true
     // For FAST5 input use dorado 0.9.5, otherwise the latest version of Dorado
     container params.using_fast5 ? 'nanoporetech/dorado:sha268dcb4cd02093e75cdc58821f8b93719c4255ed' : 'nanoporetech/dorado:latest'
     containerOptions {
