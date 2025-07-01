@@ -10,7 +10,7 @@ This is a pipeline for Nanopore Sequencing data that runs the following tools:
   * [Clair3](https://github.com/HKU-BAL/Clair3) 
   * [Sniffles](https://github.com/fritzsedlazeck/Sniffles)
 * Variant Annotation
-  # * [SnpEff](https://pcingola.github.io/SnpEff/) (In progress)
+  * [SnpEff - Not fully implemented ](https://pcingola.github.io/SnpEff/)
   * [VEP](https://www.ensembl.org/info/docs/tools/vep/index.html)
   * [whatshap](https://whatshap.readthedocs.io/en/latest/)
 * Modification Calling 
@@ -32,17 +32,38 @@ This is a pipeline for Nanopore Sequencing data that runs the following tools:
 
 1. Download test data 
 
+> Note that you will need to have samtools (tabix and bgzip) installed to run the below.
+
 ```bash
 mkdir data
-wget -L -o f5c_na12878_test.tgz "https://f5c.page.link/f5c_na12878_test"
+cd data || exit 1
+wget -O f5c_na12878_test.tgz "https://f5c.page.link/f5c_na12878_test"
 tar -xvf f5c_na12878_test.tgz
+rm f5c_na12878_test.tgz
 
-curl -LO  https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
+wget -O https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
+wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz
+wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz.tbi
+wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
+wget -o https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
 
-curl -LO 
 ```
 
+2. Install Nextflow (follow instructions [here](https://www.nextflow.io/docs/latest/install.html)) and docker.
 
+```bash
+curl -s https://get.nextflow.io | bash
+```
+
+3. Start the pipeline:
+
+```bash 
+nextflow run IsmailM/nf-nanopore --output_dir output -c data/example.config \
+  --ref ./data/chr22_meth_example/humangenome.fa \
+  --fast5_dir ./data/chr22_meth_example/fast5_files
+```
+
+This should take around 15-20 mins with a machine with a GPU.
 
 ### Release a new Docker build
 

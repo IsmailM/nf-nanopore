@@ -14,7 +14,6 @@ process MODBAMTOOLS {
 
     script:
     """
-
     # Regional methylation calculation
     modbamtools calcMeth --bed promoters.bed \
         --threads ${task.cpus} \
