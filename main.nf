@@ -23,16 +23,16 @@ include { MULTIQC } from './modules/qc/multiqc.nf'
 
 fast5_ch = channel.fromPath(params.fast5_dir, type: 'dir', checkIfExists: true)
 ref_ch = channel.fromPath(params.ref, type: 'file', checkIfExists: true)
-modbamtools_gencode_ch = channel
-    .fromPath(params.modbamtools_gencode, type: 'file', checkIfExists: true)
-    .map { f -> 
-        def tbi = file("${f}.tbi")
-        if (!tbi.exists()) {
-            error "Index file ${tbi} not found"
-        }
-        tuple(f, tbi)
-    }
-modbamtools_locations_bed_ch = channel.fromPath(params.modbamtools_locations_bed, type: 'file', checkIfExists: true)
+// modbamtools_gencode_ch = channel
+//     .fromPath(params.modbamtools_gencode, type: 'file', checkIfExists: true)
+//     .map { f -> 
+//         def tbi = file("${f}.tbi")
+//         if (!tbi.exists()) {
+//             error "Index file ${tbi} not found"
+//         }
+//         tuple(f, tbi)
+//     }
+// modbamtools_locations_bed_ch = channel.fromPath(params.modbamtools_locations_bed, type: 'file', checkIfExists: true)
 
 workflow {
     SINGLE_TO_MULTI_FAST5(fast5_ch)

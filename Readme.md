@@ -15,7 +15,7 @@ This is a pipeline for Nanopore Sequencing data that runs the following tools:
   * [whatshap](https://whatshap.readthedocs.io/en/latest/)
 * Modification Calling 
   * [ModKit](https://github.com/nanoporetech/modkit)
-  * [Modbamtools](https://github.com/rrazaghi/modbamtools)
+  * [Modbamtools - Not fully implemented ](https://github.com/rrazaghi/modbamtools)
 * QC
   * [FastpLong](https://github.com/OpenGene/fastplong)
   * [ToulligQC](https://github.com/GenomiqueENS/toulligQC)
@@ -39,9 +39,6 @@ cd data || exit 1
 wget -O f5c_na12878_test.tgz "https://f5c.page.link/f5c_na12878_test"
 tar -xvf f5c_na12878_test.tgz
 rm f5c_na12878_test.tgz
-
-# wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gencode.v38.annotation.gtf.gz
-# wget https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
 
 cd .. || exit 1
 wget https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
@@ -79,9 +76,7 @@ git clone https://github.com/IsmailM/nf-nanopore
 nextflow run main.nf -resume -with-tower --output_dir out -c nextflow.config \
   --ref ../data/chr22_meth_example/humangenome.fa \
   --fast5_dir ../data/chr22_meth_example/fast5_files \
-  --dorado_model_download_key dna_r9.4.1_e8_hac@v3.3 \
-  --modbamtools_locations_bed ../data/genes.bed \
-  --modbamtools_gencode ../data/gencode.v38.annotation.gtf.gz
+  --dorado_model_download_key dna_r9.4.1_e8_hac@v3.3
 ```
 
 > [!NOTE]  
