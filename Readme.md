@@ -45,8 +45,9 @@ wget -O https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_38/gen
 wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz
 wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/gencode.v38.annotation.gtf.gz.tbi
 wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/genes.bed
-wget -o https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
 
+cd .. || exit 1
+wget -O https://raw.githubusercontent.com/IsmailM/nf-nanopore/refs/heads/main/test_files/example.config
 ```
 
 2. Install Nextflow (follow instructions [here](https://www.nextflow.io/docs/latest/install.html)) and docker.
@@ -58,7 +59,7 @@ curl -s https://get.nextflow.io | bash
 3. Start the pipeline:
 
 ```bash 
-nextflow run IsmailM/nf-nanopore --output_dir output -c data/example.config \
+nextflow run IsmailM/nf-nanopore --output_dir output -c example.config \
   --ref ./data/chr22_meth_example/humangenome.fa \
   --fast5_dir ./data/chr22_meth_example/fast5_files
 ```

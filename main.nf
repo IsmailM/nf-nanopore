@@ -18,11 +18,13 @@ include { QC_NANOPLOT } from './modules/qc/nanoplot.nf'
 include { QC_CRAMINO } from './modules/qc/cramino.nf'
 include { QC_CHOPPER } from './modules/qc/chopper.nf'
 
+fast5_ch = channel.fromPath(params.fast5_dir, type: 'dir', checkIfExists: true)
+ref_ch = channel.fromPath(params.ref, type: 'file', checkIfExists: true)
 workflow {
-    SINGLE_TO_MULTI_FAST5(params.fast5_dir)
+    SINGLE_TO_MULTI_FAST5(fast5_ch)
     DORADO_BASECALLER(SINGLE_TO_MULTI_FAST5.out.processed_fast5)
     BASECALLED_FASTQ(DORADO_BASECALLER.out.basecalled_bam)
-    INDEX_REFERENCE(params.ref)
+    INDEX_REFERENCE(ref_ch)
     DORADO_ALIGNER(DORADO_BASECALLER.out.basecalled_bam, INDEX_REFERENCE.out.ref)
     CLAIR_CALLER(DORADO_ALIGNER.out.aligned_bam, INDEX_REFERENCE.out.ref)
     SNIFFLES_CALLER(DORADO_ALIGNER.out.aligned_bam, INDEX_REFERENCE.out.ref)
