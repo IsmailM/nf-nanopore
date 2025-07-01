@@ -17,7 +17,6 @@ This is a pipeline for Nanopore Sequencing data that runs the following tools:
   * [ModKit](https://github.com/nanoporetech/modkit)
   * [Modbamtools](https://github.com/rrazaghi/modbamtools)
 * QC
-  * MultiQC
   * [FastpLong](https://github.com/OpenGene/fastplong)
   * [ToulligQC](https://github.com/GenomiqueENS/toulligQC)
   * [Nanoplot](https://github.com/wdecoster/nanoplot)

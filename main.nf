@@ -9,6 +9,7 @@ include { ANNOTATION_SNPEFF } from './modules/annotation/snpeff.nf'
 include { ANNOTATION_VEP } from './modules/annotation/vep.nf'
 include { PHASING } from './modules/variants/whatshap.nf'
 include { MODKIT } from './modules/methylation/modkit.nf'
+include { MODBAMTOOLS } from './modules/methylation/modbamtools/main.nf'
 include { BASECALLED_FASTQ } from './modules/utils/bam2fastq.nf'
 include { QC_FASTP_LONG } from './modules/qc/fastp_long.nf'
 include { QC_MOSDEPTH } from './modules/qc/mosdepth.nf'
@@ -20,6 +21,9 @@ include { QC_CHOPPER } from './modules/qc/chopper.nf'
 
 fast5_ch = channel.fromPath(params.fast5_dir, type: 'dir', checkIfExists: true)
 ref_ch = channel.fromPath(params.ref, type: 'file', checkIfExists: true)
+modbamtools_gencode_ch = channel.fromPath(params.modbamtools_gencode, type: 'file', checkIfExists: true)
+modbamtools_locations_bed_ch = channel.fromPath(params.modbamtools_locations_bed, type: 'file', checkIfExists: true)
+
 workflow {
     SINGLE_TO_MULTI_FAST5(fast5_ch)
     DORADO_BASECALLER(SINGLE_TO_MULTI_FAST5.out.processed_fast5)
@@ -32,6 +36,7 @@ workflow {
     ANNOTATION_VEP(CLAIR_CALLER.out.variants_vcf)
     PHASING(DORADO_ALIGNER.out.aligned_bam, CLAIR_CALLER.out.variants_vcf, INDEX_REFERENCE.out.ref)
     MODKIT(DORADO_ALIGNER.out.aligned_bam, INDEX_REFERENCE.out.ref)
+    MODBAMTOOLS(DORADO_ALIGNER.out.aligned_bam, INDEX_REFERENCE.out.ref, modbamtools_gencode_ch, modbamtools_locations_bed_ch)
     QC_FASTP_LONG(BASECALLED_FASTQ.out.basecalled_fastq)
     QC_MOSDEPTH(DORADO_ALIGNER.out.aligned_bam)
     QC_FASTCAT_BAMSTATS(BASECALLED_FASTQ.out.basecalled_fastq, DORADO_ALIGNER.out.aligned_bam)
