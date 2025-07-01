@@ -21,12 +21,12 @@ process DORADO_BASECALLER {
     def model_to_use = ""
     def need_download = false
 
-    if (params.dorado?.model?.file) {
+    if (params.dorado_model_file) {
         model_to_use = params.dorado.model.file
-    } else if (params.dorado?.model?.download_key) {
+    } else if (params.dorado_model_download_key) {
         model_to_use = params.dorado.model.download_key
         need_download = true
-    } else if (params.dorado?.model?.name) {
+    } else if (params.dorado_model_name) {
         model_to_use = params.dorado.model.name
     } else {
         model_to_use = "hac,5mCG_5hmCG"
@@ -43,7 +43,7 @@ process DORADO_BASECALLER {
     dorado basecaller \\
         ${model_to_use} \\
         ${pod5_or_fast5_dir} \\
-        ${params.dorado?.args ?: ''} \\
+        ${params.dorado_args ?: ''} \\
         > calls.bam
     echo "Basecalling completed, output written to calls.bam"
     """
